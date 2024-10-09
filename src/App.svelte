@@ -1,11 +1,6 @@
 <script>
-  import { onMount } from "svelte";
   import {
     randomNumber,
-    getRandomNumber,
-    whoStarts,
-    resetGame,
-    playerColor,
     winner,
     draw,
     currentPlayer,
@@ -13,7 +8,7 @@
     grid,
     numRow,
     numCol,
-    matchStatistics,
+    columnIndexTarget,
   } from "./stores/Stores"; // Importa lo store e la funzione
   import GameBoard from "./components/GameBoard.svelte";
   import BoardSizeSelector from "./components/BoardSizeSelector.svelte";
@@ -26,20 +21,18 @@
   $boardGameSize;
   $numRow;
   $numCol;
-  $matchStatistics;
-  let columnIndexTarget = 0;
-  let gameInProgress = false;
+  $winner;
+  $draw;
+  $columnIndexTarget;
+
   let screenSize; //BP: 576px, 768px, 992px, 1200px
 
-$:console.log("Random Number:", $randomNumber);
-$:console.log("Grid State:", $grid);
-$:console.log("Starts:", $currentPlayer);
-$:console.log("Number of Columns:", $numCol);
-$:console.log("Number of Rows:", $numRow);
-$:console.log("Board Game Size:", $boardGameSize);
-
-
-  
+  $: console.log("Random Number:", $randomNumber);
+  $: console.log("Grid State:", $grid);
+  $: console.log("Starts:", $currentPlayer);
+  $: console.log("Number of Columns:", $numCol);
+  $: console.log("Number of Rows:", $numRow);
+  $: console.log("Board Game Size:", $boardGameSize);
 </script>
 
 {#if !$boardGameSize}
@@ -47,5 +40,3 @@ $:console.log("Board Game Size:", $boardGameSize);
 {:else}
   <GameBoard />
 {/if}
-
-  

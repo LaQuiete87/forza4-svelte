@@ -9,6 +9,7 @@
     numRow,
     numCol,
     columnIndexTarget,
+    matchStatistics
   } from "./stores/Stores"; // Importa lo store e la funzione
   import GameBoard from "./components/GameBoard.svelte";
   import BoardSizeSelector from "./components/BoardSizeSelector.svelte";
@@ -24,6 +25,8 @@
   $winner;
   $draw;
   $columnIndexTarget;
+  $matchStatistics
+
 
   let screenSize; //BP: 576px, 768px, 992px, 1200px
 
@@ -33,6 +36,7 @@
   $: console.log("Number of Columns:", $numCol);
   $: console.log("Number of Rows:", $numRow);
   $: console.log("Board Game Size:", $boardGameSize);
+  $: console.log("Match Statistics", $matchStatistics);
 </script>
 
 {#if !$boardGameSize}

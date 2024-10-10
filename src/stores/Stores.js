@@ -234,8 +234,9 @@ export function blockOrWin() {
       currentPlayer === "CPU_1"
         ? stat.players[0].numStreaks++
         : stat.players[1].numStreaks++;
-      return true; // C'è una mossa vincente
+      return stat; // C'è una mossa vincente
     });
+    return true
   }
 
   console.log("Non sono riuscito a vincere.");
@@ -243,15 +244,15 @@ export function blockOrWin() {
 
   //Se non è stato possibile vincere, controlla se è possibile bloccare
   //Cerca un trio orizzontale per bloccare
-  target = findTrioHorizontal(get(numRow), get(numCol), get(grid), get(opponentPlayer));
+  target = findTrioHorizontal(get(numRow), get(numCol), get(grid), opponentPlayer);
 
   // Se non è stato trovato un trio orizzontale per bloccare, controlla il trio diagonale
   if (!target.found)
-    target = findTrioDiagonal(get(numRow), get(numCol), get(grid), get(opponentPlayer));
+    target = findTrioDiagonal(get(numRow), get(numCol), get(grid), opponentPlayer);
 
   // Se non è stato trovato un trio diagonale per bloccare, controlla il trio verticale
   if (!target.found)
-    target = findTrioVertical(get(numRow), get(numCol), get(grid), get(opponentPlayer));
+    target = findTrioVertical(get(numRow), get(numCol), get(grid), opponentPlayer);
 
   //Se il target è stato trovato assegna l'indice trovato a columnIndexTarget
   if (target.found) {
@@ -263,8 +264,9 @@ export function blockOrWin() {
       currentPlayer === "CPU_1"
         ? stat.players[0].numBlocks++
         : stat.players[1].numBlocks++;
-      return true; // C'è una mossa da bloccare
+      return stat; // C'è una mossa da bloccare
     });
+    return true
   }
   console.log("Non sono riuscito a bloccare.");
   return false; // Nessuna mossa vincente trovata
@@ -295,8 +297,9 @@ export function tryToMakeTrio() {
       currentPlayer === "CPU_1"
         ? stat.players[0].numStreaks++
         : stat.players[1].numStreaks++;
-      return true;
+      return stat;
     });
+    return true
   }
 
   console.log("Non sono riuscito a fare tris sensato.");
@@ -328,8 +331,9 @@ export function tryToMakeCouple() {
       currentPlayer === "CPU_1"
         ? stat.players[0].numStreaks++
         : stat.players[1].numStreaks++;
-      return true;
+      return stat;
     });
+    return true
   }
 
   console.log("Non sono riuscito a fare duo sensato.");
@@ -348,9 +352,10 @@ export async function play() {
       currentPlayer === "CPU_1"
         ? stat.players[0].numTurns++
         : stat.players[1].numTurns++;
+        return stat
     });
 
-    console.log(`E' il turno di `);
+    console.log(`E' il turno di `, get(currentPlayer));
 
     // Vinci o blocca se possibile
     // se trova una combinazione vincente o da bloccare per impedire la vincita inserisce la pedina nella colonna trovata e la mette in basso garantendo la gravità del gioco
@@ -385,7 +390,7 @@ export async function play() {
     }
     //se non è stata trovata una combinazione per fare duo sensato inserisce la pedina casualmente
     else {
-      await tryPlaceRandomPawn();
+      await tryToPlaceRandomPawn();
       if (await endOrChangePlayer()) {
         clearInterval(myGame);
         return;
@@ -393,6 +398,56 @@ export async function play() {
     }
   }, 2000); // Ripete ogni 2 secondi
 }
+
+ // Metodo per provare a inserire la pedina in una colonna casuale
+//  export async function tryToPlaceRandomPawn() {
+//   let placed = false;
+//   console.log('Inserisco la pedina casualmente');
+//   // Finché la pedina non viene piazzata su una colonna libera viene chiamato il metodo tryToPlace()
+//   const tryToPlace = () => {
+//     // Estrai un numero casuale per la colonna
+//     return new Promise((resolve, reject) => {
+//       this.gameService.getRandomNumber(this.boardGameSize).subscribe({
+//         next: (data) => {
+//           const colIndexRandom = data;
+//           console.log(
+//             'Prova ad inserire nella colonna con indice',
+//             colIndexRandom
+//           );
+
+//           // Prova a piazzare la pedina, se riesce `placePawnRandomly` restituirà `true`
+//           placed = this.gameService.placePawn(
+//             this.currentPlayer,
+//             this.numRow,
+//             colIndexRandom,
+//             this.grid
+//           );
+//           // Se non riesce incrementa numDuplicates in base al giocatore in turno e richiama il metodo tryToPlace()
+//           if (!placed) {
+//             console.log('Colonna piena');
+//             // Incrementa numDuplicates in base al giocatore in turno
+//             this.currentPlayer === 'CPU_1'
+//               ? this.matchStatistics.players[0].numDuplicates++
+//               : this.matchStatistics.players[1].numDuplicates++;
+//             resolve(tryToPlace());
+//           }
+//           //se riesce risolve la promise
+//           else {
+//             console.log(
+//               `Pedina inserita nella colonna con indice ${colIndexRandom} `
+//             );
+//             resolve();
+//           }
+//         },
+//         error: (err) => console.log(err),
+//       });
+//     });
+//   };
+
+//   // Inizia il ciclo
+//   await tryToPlace();
+// }
+
 
 // ---------------------------------
 // METODI DI VERIFICA VINCITA/BLOCCO E/O MOSSE SENSATE

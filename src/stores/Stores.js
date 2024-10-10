@@ -29,7 +29,6 @@ export const numCol = writable(0);
 export const gameInProgress = writable(false);
 export const columnIndexTarget = writable(0);
 
-
 const numRandomAPI =
   "https://www.random.org/integers/?num=1&min=0&col=1&base=10&format=plain&rnd=new&max=";
 
@@ -80,8 +79,8 @@ export function whoStarts(num) {
 //Resetta i dati di gioco
 export function resetGame() {
   winner.set(false);
-  draw.set(false)
- 
+  draw.set(false);
+
   matchStatistics.set({
     players: [
       {
@@ -103,16 +102,23 @@ export function resetGame() {
 }
 
 export function playerColor(cell) {
+  if (cell === "CPU_1") {
+    return {
+      "background-image": 'url("/assets/Pedina_Gialla.png")',
+      width: "95px",
+      height: "95px",
+    };
+  }
   if (cell === "CPU_2") {
     return {
-      "background-image": 'url("/img/Pedina_rossa.png")',
+      "background-image": 'url("/assets/Pedina_rossa.png")',
       width: "95px",
       height: "95px",
     };
   }
   if (cell === null) {
     return {
-      "background-image": 'url("/img/Cella_vuota.png")',
+      "background-image": 'url("/assets/Cella_vuota.png")',
       width: "95px",
       height: "95px",
     };
@@ -214,21 +220,39 @@ export function blockOrWin() {
   const opponentPlayer = currentPlayer === "CPU_1" ? "CPU_2" : "CPU_1";
   console.log("Provo a vincere");
   //Cerca un trio orizzontale per vincere
-  let target = findTrioHorizontal(get(numRow), get(numCol), get(grid), get(currentPlayer));
+  let target = findTrioHorizontal(
+    get(numRow),
+    get(numCol),
+    get(grid),
+    get(currentPlayer)
+  );
 
   // Se non è stato trovato un trio orizzontale per vincere, controlla il trio diagonale
   if (!target.found)
-    target = findTrioDiagonal(get(numRow), get(numCol), get(grid), get(currentPlayer));
+    target = findTrioDiagonal(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      get(currentPlayer)
+    );
 
   // Se non è stato trovato un trio diagonale per vincere, controlla il trio verticale
   if (!target.found)
-    target = findTrioVertical(get(numRow), get(numCol), get(grid), get(currentPlayer));
+    target = findTrioVertical(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      get(currentPlayer)
+    );
 
   //Se il target è stato trovato assegna l'indice trovato a columnIndexTarget
   if (target.found) {
     console.log("Trovata combinazione per vincere");
     columnIndexTarget.set(target.colIndex);
-    console.log("Indice colonna da riempire per vincere", get(columnIndexTarget));
+    console.log(
+      "Indice colonna da riempire per vincere",
+      get(columnIndexTarget)
+    );
     // Incrementa numStreak in base al giocatore in turno
     matchStatistics.update((stat) => {
       currentPlayer === "CPU_1"
@@ -236,7 +260,7 @@ export function blockOrWin() {
         : stat.players[1].numStreaks++;
       return stat; // C'è una mossa vincente
     });
-    return true
+    return true;
   }
 
   console.log("Non sono riuscito a vincere.");
@@ -244,21 +268,39 @@ export function blockOrWin() {
 
   //Se non è stato possibile vincere, controlla se è possibile bloccare
   //Cerca un trio orizzontale per bloccare
-  target = findTrioHorizontal(get(numRow), get(numCol), get(grid), opponentPlayer);
+  target = findTrioHorizontal(
+    get(numRow),
+    get(numCol),
+    get(grid),
+    opponentPlayer
+  );
 
   // Se non è stato trovato un trio orizzontale per bloccare, controlla il trio diagonale
   if (!target.found)
-    target = findTrioDiagonal(get(numRow), get(numCol), get(grid), opponentPlayer);
+    target = findTrioDiagonal(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      opponentPlayer
+    );
 
   // Se non è stato trovato un trio diagonale per bloccare, controlla il trio verticale
   if (!target.found)
-    target = findTrioVertical(get(numRow), get(numCol), get(grid), opponentPlayer);
+    target = findTrioVertical(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      opponentPlayer
+    );
 
   //Se il target è stato trovato assegna l'indice trovato a columnIndexTarget
   if (target.found) {
     console.log("Trovata combinazione per bloccare");
     columnIndexTarget.set(target.colIndex);
-    console.log("Indice colonna da riempire per bloccare", get(columnIndexTarget));
+    console.log(
+      "Indice colonna da riempire per bloccare",
+      get(columnIndexTarget)
+    );
     // Incrementa numBlocks in base al giocatore in turno
     matchStatistics.update((stat) => {
       currentPlayer === "CPU_1"
@@ -266,7 +308,7 @@ export function blockOrWin() {
         : stat.players[1].numBlocks++;
       return stat; // C'è una mossa da bloccare
     });
-    return true
+    return true;
   }
   console.log("Non sono riuscito a bloccare.");
   return false; // Nessuna mossa vincente trovata
@@ -277,21 +319,39 @@ export function tryToMakeTrio() {
   console.log("Provo a fare un tris sensato");
 
   //Cerca un duo verticale per fare tris sensato
-  let target = findCoupleVertical(get(numRow), get(numCol), get(grid), get(currentPlayer));
+  let target = findCoupleVertical(
+    get(numRow),
+    get(numCol),
+    get(grid),
+    get(currentPlayer)
+  );
 
   // Se non è stato trovato un duo verticale, controlla il duo orizzontale(get(numRow), get(numCol), get(grid), get(currentPlayer));
   if (!target.found)
-    target = findCoupleHorizontal(get(numRow), get(numCol), get(grid), get(currentPlayer));
+    target = findCoupleHorizontal(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      get(currentPlayer)
+    );
 
   // Se non è stato trovato un duo orizzontale, controlla il duo diagonale
   if (!target.found)
-    target = findCoupleDiagonal(get(numRow), get(numCol), get(grid), get(currentPlayer));
+    target = findCoupleDiagonal(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      get(currentPlayer)
+    );
 
   //Se il target è stato trovato assegna l'indice trovato a columnIndexTarget
   if (target.found) {
     console.log("Trovata combinazione per fare tris sensato");
     columnIndexTarget.set(target.colIndex);
-    console.log("Indice colonna da riempire per fare tris", get(columnIndexTarget));
+    console.log(
+      "Indice colonna da riempire per fare tris",
+      get(columnIndexTarget)
+    );
     // Incrementa numStreak in base al giocatore in turno
     matchStatistics.update((stat) => {
       currentPlayer === "CPU_1"
@@ -299,7 +359,7 @@ export function tryToMakeTrio() {
         : stat.players[1].numStreaks++;
       return stat;
     });
-    return true
+    return true;
   }
 
   console.log("Non sono riuscito a fare tris sensato.");
@@ -311,21 +371,39 @@ export function tryToMakeCouple() {
   console.log("Provo a fare un duo sensato");
 
   //Cerca un singolo verticale per fare un duo sensato
-  let target = findSingleVertical(get(numRow), get(numCol), get(grid), get(currentPlayer));
+  let target = findSingleVertical(
+    get(numRow),
+    get(numCol),
+    get(grid),
+    get(currentPlayer)
+  );
 
   // Se non è stato trovato un singolo verticale, controlla il singolo orizzontale
   if (!target.found)
-    target = findSingleHorizontal(get(numRow), get(numCol), get(grid), get(currentPlayer));
+    target = findSingleHorizontal(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      get(currentPlayer)
+    );
 
   // Se non è stato trovato un singolo orizzontale, controlla il singolo diagonale
   if (!target.found)
-    target = findSingleDiagonal(get(numRow), get(numCol), get(grid), get(currentPlayer));
+    target = findSingleDiagonal(
+      get(numRow),
+      get(numCol),
+      get(grid),
+      get(currentPlayer)
+    );
 
   //Se il target è stato trovato assegna l'indice trovato a columnIndexTarget
   if (target.found) {
     console.log("Trovata combinazione per fare duo sensato");
     columnIndexTarget.set(target.colIndex);
-    console.log("Indice colonna da riempire per fare duo", get(columnIndexTarget));
+    console.log(
+      "Indice colonna da riempire per fare duo",
+      get(columnIndexTarget)
+    );
     // Incrementa numStreaks in base al giocatore in turno
     matchStatistics.update((stat) => {
       currentPlayer === "CPU_1"
@@ -333,7 +411,7 @@ export function tryToMakeCouple() {
         : stat.players[1].numStreaks++;
       return stat;
     });
-    return true
+    return true;
   }
 
   console.log("Non sono riuscito a fare duo sensato.");
@@ -352,7 +430,7 @@ export async function play() {
       currentPlayer === "CPU_1"
         ? stat.players[0].numTurns++
         : stat.players[1].numTurns++;
-        return stat
+      return stat;
     });
 
     console.log(`E' il turno di `, get(currentPlayer));
@@ -398,56 +476,6 @@ export async function play() {
     }
   }, 2000); // Ripete ogni 2 secondi
 }
-
- // Metodo per provare a inserire la pedina in una colonna casuale
-//  export async function tryToPlaceRandomPawn() {
-//   let placed = false;
-//   console.log('Inserisco la pedina casualmente');
-//   // Finché la pedina non viene piazzata su una colonna libera viene chiamato il metodo tryToPlace()
-//   const tryToPlace = () => {
-//     // Estrai un numero casuale per la colonna
-//     return new Promise((resolve, reject) => {
-//       this.gameService.getRandomNumber(this.boardGameSize).subscribe({
-//         next: (data) => {
-//           const colIndexRandom = data;
-//           console.log(
-//             'Prova ad inserire nella colonna con indice',
-//             colIndexRandom
-//           );
-
-//           // Prova a piazzare la pedina, se riesce `placePawnRandomly` restituirà `true`
-//           placed = this.gameService.placePawn(
-//             this.currentPlayer,
-//             this.numRow,
-//             colIndexRandom,
-//             this.grid
-//           );
-//           // Se non riesce incrementa numDuplicates in base al giocatore in turno e richiama il metodo tryToPlace()
-//           if (!placed) {
-//             console.log('Colonna piena');
-//             // Incrementa numDuplicates in base al giocatore in turno
-//             this.currentPlayer === 'CPU_1'
-//               ? this.matchStatistics.players[0].numDuplicates++
-//               : this.matchStatistics.players[1].numDuplicates++;
-//             resolve(tryToPlace());
-//           }
-//           //se riesce risolve la promise
-//           else {
-//             console.log(
-//               `Pedina inserita nella colonna con indice ${colIndexRandom} `
-//             );
-//             resolve();
-//           }
-//         },
-//         error: (err) => console.log(err),
-//       });
-//     });
-//   };
-
-//   // Inizia il ciclo
-//   await tryToPlace();
-// }
-
 
 // ---------------------------------
 // METODI DI VERIFICA VINCITA/BLOCCO E/O MOSSE SENSATE
@@ -1064,3 +1092,53 @@ export function findSingleVertical(numRow, numCol, grid, player) {
   }
   return result;
 }
+
+// Metodo per provare a inserire la pedina in una colonna casuale
+export async function tryToPlaceRandomPawn() {
+  let placed = false;
+  console.log("Inserisco la pedina casualmente");
+  // Finché la pedina non viene piazzata su una colonna libera viene chiamato il metodo tryToPlace()
+  const tryToPlace = () => {
+    // Estrai un numero casuale per la colonna
+    return new Promise((resolve) => {
+      const colIndexRandom = null;
+      getRandomNumber(get(boardGameSize)).then(() => {
+        colIndexRandom = get(randomNumber);
+      });
+      console.log(
+        "Prova ad inserire nella colonna con indice",
+        get(colIndexRandom)
+      );
+
+      // Prova a piazzare la pedina, se riesce `placePawnRandomly` restituirà `true`
+      placed = placePawn(
+        get(currentPlayer),
+        get(numRow),
+        colIndexRandom,
+        get(grid)
+      );
+
+      // Se non riesce incrementa numDuplicates in base al giocatore in turno e richiama il metodo tryToPlace()
+      if (!placed) {
+        console.log("Colonna piena");
+        // Incrementa numDuplicates in base al giocatore in turno
+        matchStatistics.update((stat) => {
+          currentPlayer === "CPU_1"
+            ? stat.players[0].numDuplicates++
+            : stat.players[1].numDuplicates++;
+          return stat; 
+        });
+        resolve(tryToPlace());
+      } else {
+        console.log(
+          `Pedina inserita nella colonna con indice ${colIndexRandom} `
+        );
+        resolve();
+      }
+    });
+  };
+  // Inizia il ciclo
+  await tryToPlace();
+}
+
+

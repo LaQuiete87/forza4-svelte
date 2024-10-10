@@ -24,4 +24,8 @@ import { generateBoardGame } from "../stores/Stores";
       7 x 6
     </button>
   </div>
+  <div>
+    <img src="/assets/Pedina_Gialla.png" alt="Pedina Gialla">
+
+  </div>
 </div>

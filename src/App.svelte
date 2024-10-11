@@ -44,9 +44,10 @@
   <BoardSizeSelector />
 {:else}
   <GameBoard />
-  <!-- {#if $winner || $draw}
+  {#if $winner || $draw}
     <Statistics />
-  {/if} -->
-  <Statistics />
+  {/if}
+ 
 {/if}
+
 

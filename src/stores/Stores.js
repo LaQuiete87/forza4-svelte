@@ -8,14 +8,14 @@ export const currentPlayer = writable("");
 export const matchStatistics = writable({
   players: [
     {
-      name: "Giallo",
+      name: "CPU_1",
       numTurns: 0,
       numDuplicates: 0,
       numStreaks: 0,
       numBlocks: 0,
     },
     {
-      name: "Rosso",
+      name: "CPU_2",
       numTurns: 0,
       numDuplicates: 0,
       numStreaks: 0,
@@ -29,6 +29,7 @@ export const numCol = writable(0);
 export const gameInProgress = writable(false);
 export const columnIndexTarget = writable(0);
 export const pawnColor= writable("")
+
 
 const numRandomAPI =
   "https://www.random.org/integers/?num=1&min=0&col=1&base=10&format=plain&rnd=new&max=";
@@ -88,14 +89,14 @@ export function resetGame() {
   matchStatistics.set({
     players: [
       {
-        name: "Giallo",
+        name: "CPU_1",
         numTurns: 0,
         numDuplicates: 0,
         numStreaks: 0,
         numBlocks: 0,
       },
       {
-        name: "Rosso",
+        name: "CPU_2",
         numTurns: 0,
         numDuplicates: 0,
         numStreaks: 0,
@@ -190,6 +191,7 @@ export async function endOrChangePlayer() {
   verifyVictory();
   if (get(winner)) {
     console.log(`${get(currentPlayer)} ha vinto!`);
+  
     return true; // partita finita
   }
 

@@ -7,6 +7,7 @@
     draw,
     play,
     playAgain,
+    boardGameSize,
   } from "../stores/Stores";
   $grid;
   $gameInProgress;
@@ -62,13 +63,21 @@
     </table>
   </div>
   {#if !$winner && !$draw}
-    <button
+   <div class="row mt-4 w-50">
+    <div class="col d-flex justify-content-center ">
+      <button
       
-      class="btn btn-outline-success d-block w-50 mt-3 p-3 fs-3 mx-auto"
+      class="btn btn-outline-success w-100 me-5"
       on:click={play}
     >
       Gioca
     </button>
+    <button class="btn btn-outline-danger w-100" on:click={()=>{
+      boardGameSize.set('')
+    }}>Indietro</button>
+    </div>
+   </div>
+   
   {:else if $winner || $draw}
     <button
       class="btn btn-outline-success d-block w-50 mt-3 p-3 fs-3 mx-auto"

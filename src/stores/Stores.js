@@ -106,7 +106,6 @@ export function resetGame() {
 }
 
 export function playerColor(cell) {
-  console.log("player color cell", cell)
   if (cell === "CPU_1") return "yellow-pawn";
   if (cell === "CPU_2") return "red-pawn";
   if (cell === null) return "empty-pawn";

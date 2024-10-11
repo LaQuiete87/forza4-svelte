@@ -9,10 +9,12 @@
     numRow,
     numCol,
     columnIndexTarget,
-    matchStatistics
+    matchStatistics,
+    gameInProgress,
   } from "./stores/Stores"; // Importa lo store e la funzione
   import GameBoard from "./components/GameBoard.svelte";
   import BoardSizeSelector from "./components/BoardSizeSelector.svelte";
+  import Statistics from "./components/Statistics.svelte";
 
   $randomNumber;
   $winner;
@@ -25,8 +27,7 @@
   $winner;
   $draw;
   $columnIndexTarget;
-  $matchStatistics
-
+  $matchStatistics;
 
   let screenSize; //BP: 576px, 768px, 992px, 1200px
 
@@ -43,4 +44,9 @@
   <BoardSizeSelector />
 {:else}
   <GameBoard />
+  <!-- {#if $winner || $draw}
+    <Statistics />
+  {/if} -->
+  <Statistics />
 {/if}
+

@@ -13,42 +13,9 @@
   $winner;
   $draw;
 
-  gameInProgress.subscribe(data =>{
-    console.log(data)
-  })
-</script>
 
-<div
-  class="row d-flex flex-column flex-sm-row flex-lg-row justify-content-center align-items-center"
->
-  <div class="col-12 col-lg-9">
-    <table class="boardGame mx-auto">
-      {#each $grid as row}
-        <tr>
-          {#each row as cell}
-            <td class="cell" style={playerColor(cell)}></td>
-          {/each}
-        </tr>
-      {/each}
-    </table>
-  </div>
-  {#if !$winner && !$draw}
-    <button
-      disabled={$gameInProgress}
-      class="btn btn-outline-success d-block w-50 mt-3 p-3 fs-3 mx-auto"
-      on:click={play}
-    >
-      Gioca
-    </button>
-  {:else if $winner || $draw}
-    <button
-      class="btn btn-outline-success d-block w-50 mt-3 p-3 fs-3 mx-auto"
-      on:click={playAgain}
-    >
-      Gioca Ancora
-    </button>
-  {/if}
-</div>
+  
+</script>
 
 <style>
   .boardGame {
@@ -65,6 +32,51 @@
     background-repeat: no-repeat;
     background-size: contain;
     padding: 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
+  }
+  .empty-pawn{
+    background-image: url("/assets/Cella_vuota.png");
+  }
+  .red-pawn{
+    background-image: url("/assets/Pedina_rossa.png");
+  }
+  .yellow-pawn{
+    background-image: url("/assets/Pedina_Gialla.png");
   }
 </style>
+
+
+
+<div
+  class="row d-flex flex-column flex-sm-row flex-lg-row justify-content-center align-items-center"
+>
+  <div class="col-12 col-lg-9">
+    <table class="boardGame mx-auto">
+      {#each $grid as row}
+        <tr>
+          {#each row as cell}
+            <td class="cell {playerColor(cell)}"  ></td>
+          {/each}
+        </tr>
+      {/each}
+    </table>
+  </div>
+  {#if !$winner && !$draw}
+    <button
+      
+      class="btn btn-outline-success d-block w-50 mt-3 p-3 fs-3 mx-auto"
+      on:click={play}
+    >
+      Gioca
+    </button>
+  {:else if $winner || $draw}
+    <button
+      class="btn btn-outline-success d-block w-50 mt-3 p-3 fs-3 mx-auto"
+      on:click={playAgain}
+    >
+      Gioca Ancora
+    </button>
+  {/if}
+</div>
+
+<!-- disabled={$gameInProgress} -->

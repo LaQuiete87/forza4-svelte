@@ -39,6 +39,17 @@
   .yellow-pawn {
     background-color: rgb(255, 235, 120);
   }
+
+  @media only screen and (max-width: 576px) {
+  td {
+    width: 12vw;
+    height: 12vw;
+  }
+  .cell{
+    width: 10vw;
+    height: 10vw;
+  }
+}
 </style>
 
 <div class="container p-4">

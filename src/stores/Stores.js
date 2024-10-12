@@ -109,10 +109,8 @@ export function resetGame() {
 export function playerColor(cell) {
   if (cell === "CPU_1") return "yellow-pawn";
   if (cell === "CPU_2") return "red-pawn";
-  if (cell === null) return "empty-pawn";
+
 }
-
-
 
 //Genera il tabellone di gioco in base alla dimensione scelta
 export async function generateBoardGame(size) {
@@ -888,16 +886,14 @@ export function findSingleDiagonal(numRow, numCol, grid, player) {
 export function forza4Horizontal(numRow, numCol, grid, player) {
   for (let indiceRiga = numRow - 1; indiceRiga >= 0; indiceRiga--) {
     for (let indiceColonna = 0; indiceColonna <= numCol - 4; indiceColonna++) {
-      // console.log(`Controllo orizzontale: (${indiceRiga}, ${indiceColonna})`);
       if (
         grid[indiceRiga][indiceColonna] === player &&
         grid[indiceRiga][indiceColonna + 1] === player &&
         grid[indiceRiga][indiceColonna + 2] === player &&
         grid[indiceRiga][indiceColonna + 3] === player
       ) {
+        
         console.log(`${player} ha fatto streak orizzontale`);
-        // this.winner = true;
-        // this.typeOfStreak = 'diagonale destro';
         return true;
       }
     }
@@ -1070,8 +1066,6 @@ export function forza4Vertical(numRow, numCol, grid, player) {
         grid[indiceRiga - 3][indiceColonna] === player
       ) {
         console.log(`${player} ha fatto streak verticale`);
-        // this.winner = true;
-        // this.typeOfStreak = 'verticale';
         return true;
       }
     }

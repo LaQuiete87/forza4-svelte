@@ -9,11 +9,8 @@
     playAgain,
     boardGameSize,
   } from "../stores/Stores";
-  $grid;
-  $gameInProgress;
-  $winner;
-  $draw;
 </script>
+
 <style>
   .boardGame {
     margin: 0;
@@ -37,66 +34,68 @@
   }
 
   .red-pawn {
-    background-color: rgb(255 120 120);;
+    background-color: rgb(255 120 120);
   }
   .yellow-pawn {
     background-color: rgb(255, 235, 120);
   }
 </style>
+
 <div class="container p-4">
   <div
-  class="row d-flex flex-column flex-sm-row flex-lg-row justify-content-center align-items-center"
->
-  <div class="col">
-    <table class="boardGame mx-auto">
-      {#each $grid as row}
-        <tr>
-          {#each row as cell}
-            <td>
-              <div class="cell {playerColor(cell)}"></div>
-            </td>
-          {/each}
-        </tr>
-      {/each}
-    </table>
+    class="row d-flex flex-column flex-sm-row flex-lg-row justify-content-center align-items-center"
+  >
+    <div class="col">
+      <table class="boardGame mx-auto">
+        {#each $grid as row}
+          <tr>
+            {#each row as cell}
+              <td>
+                <div class="cell {playerColor(cell)}"></div>
+              </td>
+            {/each}
+          </tr>
+        {/each}
+      </table>
+    </div>
+    {#if !$winner && !$draw}
+      <div class="row mt-4 w-75">
+        <div class="col d-sm-flex justify-content-center">
+          <button
+            disabled={$gameInProgress}
+            class="btn btn-outline-success w-100 me-5 p-3 fw-semibold fs-4"
+            on:click={play}
+          >
+            Gioca
+          </button>
+          <button
+            disabled={$gameInProgress}
+            class="btn btn-outline-danger w-100 mt-3 mt-sm-0 p-3 fw-semibold fs-4"
+            on:click={() => {
+              boardGameSize.set("");
+            }}>Indietro</button
+          >
+        </div>
+      </div>
+    {:else if $winner || $draw}
+      <div class="row mt-4 w-75">
+        <div class="col d-sm-flex justify-content-center">
+          <button
+            class="btn btn-outline-success w-100 me-5 p-3 fw-semibold fs-4"
+            on:click={playAgain}
+          >
+            Gioca Ancora
+          </button>
+          <button
+            class="btn btn-outline-danger w-100 mt-3 mt-sm-0 p-3 fw-semibold fs-4"
+            on:click={() => {
+              boardGameSize.set("");
+            }}>Indietro</button
+          >
+        </div>
+      </div>
+    {/if}
   </div>
-  {#if !$winner && !$draw}
-    <div class="row mt-4 w-75">
-      <div class="col d-sm-flex justify-content-center">
-        <button class="btn btn-outline-success w-100 me-5 p-3 fw-semibold fs-4" on:click={play}>
-          Gioca
-        </button>
-        <button
-          class="btn btn-outline-danger w-100 mt-3 mt-sm-0 p-3 fw-semibold fs-4"
-          on:click={() => {
-            boardGameSize.set("");
-          }}>Indietro</button
-        >
-      </div>
-    </div>
-  {:else if $winner || $draw}
-    
-
-    <div class="row mt-4 w-75">
-      <div class="col d-sm-flex justify-content-center ">
-        <button
-      class="btn btn-outline-success w-100 me-5 p-3 fw-semibold fs-4" 
-      on:click={playAgain}
-    >
-      Gioca Ancora
-    </button>
-        <button
-          class="btn btn-outline-danger w-100 mt-3 mt-sm-0 p-3 fw-semibold fs-4"
-          on:click={() => {
-            boardGameSize.set("");
-          }}>Indietro</button
-        >
-      </div>
-    </div>
-  {/if}
 </div>
-</div>
-
-<!-- disabled={$gameInProgress} -->
 
 

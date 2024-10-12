@@ -1,10 +1,8 @@
 <script>
   import { draw, currentPlayer } from "../stores/Stores";
   export let player;
-
-  $draw;
-  $currentPlayer;
 </script>
+
 <style>
   .winner {
     border: solid 5px rgb(159 255 166);
@@ -101,6 +99,7 @@
     letter-spacing: 4px;
   }
 </style>
+
 <div
   class="card m-3 p-4 montserrat-medium"
   class:winner={player.name === $currentPlayer}
@@ -160,5 +159,4 @@
     </div>
   </div>
 </div>
-
 

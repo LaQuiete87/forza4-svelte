@@ -16,7 +16,7 @@
   }
 
   .card-stat {
-    height: 254px;
+    /* height: 254px; */
     color: white;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -27,17 +27,19 @@
 
   .card-stat .item {
     border-radius: 10px;
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
+  .item{
+    padding: .9vh;
+  }
 
   .item svg {
-    width: 40px;
-    height: 40px;
+    width: 3vw;
     margin-bottom: 7px;
   }
 
@@ -87,21 +89,32 @@
   .yellow {
     background-color: #faf37e;
     color: #ffffff;
-    font-size: 28px;
+    font-size: 2vw;
     font-weight: bold;
     letter-spacing: 4px;
   }
   .red {
     background-color: #ff9494;
     color: #ffffff;
-    font-size: 28px;
+    font-size: 2vw;
     font-weight: bold;
     letter-spacing: 4px;
   }
+  @media only screen and (max-width: 576px) {
+    .item svg {
+    width: 6vw;
+    margin-bottom: 7px;
+  }
+  .red, .yellow{
+    font-size: 4vw;
+  }
+  
+ }
+
 </style>
 
 <div
-  class="card m-3 p-4 montserrat-medium"
+  class="m-3 p-4 montserrat-medium"
   class:winner={player.name === $currentPlayer}
   class:loser={player.name !== $currentPlayer && !$draw}
   class:draw={$draw}

@@ -29,6 +29,7 @@ export const numCol = writable(0);
 export const gameInProgress = writable(false);
 export const columnIndexTarget = writable(0);
 export const pawnColor = writable("");
+export const showHome= writable(true)
 
 const numRandomAPI =
   "https://www.random.org/integers/?num=1&min=0&col=1&base=10&format=plain&rnd=new&max=";

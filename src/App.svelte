@@ -9,10 +9,13 @@
     numRow,
     numCol,
     matchStatistics,
+    showHome,
   } from "./stores/Stores"; // Importa lo store e la funzione
   import GameBoard from "./components/GameBoard.svelte";
   import BoardSizeSelector from "./components/BoardSizeSelector.svelte";
   import Statistics from "./components/Statistics.svelte";
+  import Header from "./components/Header.svelte";
+  import Home from "./components/Home.svelte";
 
   $: console.log("Random Number:", $randomNumber);
   $: console.log("Grid State:", $grid);
@@ -23,46 +26,13 @@
   $: console.log("Match Statistics", $matchStatistics);
 </script>
 
-<slot>
-  <style>
-    #title {
-      font-size: 10vw;
-      font-weight: lighter;
-      letter-spacing: 3vw;
-    }
-    #logo {
-      min-width: 65px;
-      max-width: 6vw;
-      margin: 0 auto;
-    }
-    img {
-      max-width: 100%;
-      display: block;
-      margin: 0 auto;
-    }
-    .no-space {
-      letter-spacing: 0;
-    }
-  </style>
-
-  <div class="container my-5">
-    <div class="row">
-      <div class="col">
-        <h1 id="title" class="text-center">
-          FORZA <span class="no-space">4</span>
-        </h1>
-      </div>
-    </div>
-    <div id="logo" class="row">
-      <div class="col">
-        <img src="/assets/logo.png" alt="" />
-      </div>
-    </div>
-  </div>
-</slot>
-{#if !$boardGameSize}
-  <BoardSizeSelector></BoardSizeSelector>
+{#if $showHome}
+  <Home />
+{:else if !$boardGameSize}
+  <Header />
+  <BoardSizeSelector />
 {:else}
+  <Header />
   <GameBoard />
   {#if $winner || $draw}
     <Statistics />

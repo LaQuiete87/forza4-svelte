@@ -1,10 +1,14 @@
 <script>
+ 
 import { generateBoardGame } from "../stores/Stores";
+
 </script>
 
 <div class="container mt-5">
-  <!-- Slot per il titolo e logo -->
- <slot></slot>
+
+  
+   
+  
   <div class="row mb-3">
     <div class="col">
       <h4 class="text-center fw-light fs-1">Scegli il formato di gioco</h4>

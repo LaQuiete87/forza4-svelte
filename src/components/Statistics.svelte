@@ -14,6 +14,7 @@
   .modal {
     --bs-modal-width: 650px;
   }
+
 </style>
 <div
   class=" modal fade"
@@ -27,16 +28,16 @@
   <div class=" modal-dialog">
     <div class=" modal-content">
       <div class="row d-flex justify-content-between p-4">
-        <div class="col-sm-6">
+        <div class=" col-sm-6">
           <StatCard player={$matchStatistics.players[0]} />
         </div>
-        <div class="col-sm-6">
+        <div class=" col-sm-6">
           <StatCard player={$matchStatistics.players[1]} />
         </div>
+        <button type="button" class=" btn btn-dark mt-3" data-bs-dismiss="modal"
+          >Chiudi</button
+        >
       </div>
-      <button type="button" class=" btn btn-dark mt-3" data-bs-dismiss="modal"
-        >Close</button
-      >
     </div>
   </div>
 </div>

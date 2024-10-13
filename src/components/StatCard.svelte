@@ -24,7 +24,7 @@
         </div>
       </div>
       <!-- Statistiche -->
-      <div class="row row-cols-2 g-4">
+      <div class="row row-cols-4 row-cols-sm-2 g-4">
         <div class="col item d-flex flex-column align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
             ><path

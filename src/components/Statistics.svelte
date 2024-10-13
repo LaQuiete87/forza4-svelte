@@ -13,6 +13,7 @@
 <style>
   .modal {
     --bs-modal-width: 650px;
+   
   }
 
 </style>
@@ -27,7 +28,7 @@
 >
   <div class=" modal-dialog">
     <div class=" modal-content">
-      <div class="row d-flex justify-content-between p-4">
+      <div class="row d-flex justify-content-between p-sm-4">
         <div class=" col-sm-6">
           <StatCard player={$matchStatistics.players[0]} />
         </div>

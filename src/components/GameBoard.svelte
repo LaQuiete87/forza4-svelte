@@ -28,7 +28,7 @@
     height: 6vw;
     padding: 0;
 
-    border: solid rgb(125 46 46) 3px;
+    border: solid #7d2e2e 3px;
     border-radius: 50%;
     margin: 0 auto;
   }

@@ -16,16 +16,16 @@
     margin: 0;
   }
   td {
-    width: 8vw;
-    height: 8vw;
+    width: 6vw;
+    height: 6vw;
     text-align: center;
     vertical-align: middle;
     border: none;
   }
 
   .cell {
-    width: 6vw;
-    height: 6vw;
+    width: 5vw;
+    height: 5vw;
     padding: 0;
 
     border: solid #7d2e2e 3px;
@@ -54,7 +54,7 @@
 
 <div class="container p-4">
   <div
-    class="row d-flex flex-column flex-sm-row flex-lg-row justify-content-center align-items-center"
+    class="row d-flex flex-column justify-content-center align-items-center"
   >
     <div class="col">
       <table class="boardGame mx-auto">

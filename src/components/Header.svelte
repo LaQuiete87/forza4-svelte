@@ -1,6 +1,6 @@
 <style>
     #title {
-      font-size: 10vw;
+      font-size: 3vw;
       font-weight: lighter;
       letter-spacing: 3vw;
     }
@@ -17,6 +17,12 @@
     .no-space {
       letter-spacing: 0;
     }
+    @media only screen and (max-width: 576px) {
+      #title {
+      font-size: 10vw;
+     
+    }
+}
   </style>
  <div class="container">
     <div class="row">

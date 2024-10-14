@@ -1,5 +1,5 @@
 <script>
-    import {showHome} from "../stores/Stores"; 
+  import { showHome } from "../stores/Stores";
 </script>
 
 <div class="container mt-5 d-flex flex-column">
@@ -17,20 +17,27 @@
   </div>
   <div class="row my-5">
     <div class="col text-center">
-        <button class=" btn btn-dark p-4 mt-4 title w-50" on:click={()=>{showHome.set(false)}}> Entra</button>
+      <button
+        class=" btn btn-dark p-4 mt-4 title w-50"
+        on:click={() => {
+          showHome.set(false);
+        }}
+      >
+        Entra</button
+      >
     </div>
   </div>
 </div>
 
 <style>
   .title {
-    font-size: 12vw;
+    font-size: 8vw;
     font-weight: lighter;
     letter-spacing: 3vw;
   }
   #logo {
-    min-width: 330px;
-    max-width: 20vw;
+    width: 16vw;
+
     margin: 0 auto;
   }
   img {
@@ -41,9 +48,22 @@
   .no-space {
     letter-spacing: 0;
   }
-  button.title{
-    font-size: 5vw;
-    font-weight:normal;
+  button.title {
+    font-size: 3vw;
+    font-weight: normal;
     letter-spacing: normal;
+  }
+
+  @media only screen and (max-width: 576px) {
+    .title {
+      font-size: 15vw;
+    }
+    #logo {
+      max-width: none;
+      min-width: 330px;
+    }
+    button.title {
+      font-size: 5vw;
+    }
   }
 </style>

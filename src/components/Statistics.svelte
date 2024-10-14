@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { matchStatistics } from "../stores/Stores"; // Importa lo store e la funzione
+  import { matchStatistics } from "../stores/Stores";
   import StatCard from "./StatCard.svelte";
   
   onMount(() => {
@@ -17,6 +17,7 @@
   }
 
 </style>
+<!-- Modale statistiche: compare al termine di una partita -->
 <div
   class=" modal fade"
   id="statisticsModal"

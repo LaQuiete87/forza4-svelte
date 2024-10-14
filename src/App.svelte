@@ -10,7 +10,7 @@
     numCol,
     matchStatistics,
     showHome,
-  } from "./stores/Stores"; // Importa lo store e la funzione
+  } from "./stores/Stores"; // Importa lo store (funzioni e writable)
   import GameBoard from "./components/GameBoard.svelte";
   import BoardSizeSelector from "./components/BoardSizeSelector.svelte";
   import Statistics from "./components/Statistics.svelte";

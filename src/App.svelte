@@ -9,7 +9,8 @@
     numRow,
     numCol,
     matchStatistics,
-    showHome,
+    showHome
+  
   } from "./stores/Stores"; // Importa lo store (funzioni e writable)
   import GameBoard from "./components/GameBoard.svelte";
   import BoardSizeSelector from "./components/BoardSizeSelector.svelte";
@@ -23,12 +24,16 @@
   $: console.log("Number of Columns:", $numCol);
   $: console.log("Number of Rows:", $numRow);
   $: console.log("Board Game Size:", $boardGameSize);
+  $: console.log("Board Game Row:", $boardGameSize.height);
+  $: console.log("Board Game Col:", $boardGameSize.width);
   $: console.log("Match Statistics", $matchStatistics);
+  $: console.log("Board Game Valid?", $boardGameSize.valid);
+
 </script>
 
 {#if $showHome}
   <Home />
-{:else if !$boardGameSize}
+{:else if !$boardGameSize.valid}
   <Header />
   <BoardSizeSelector />
 {:else}

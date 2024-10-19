@@ -8,6 +8,7 @@
     play,
     playAgain,
     boardGameSize,
+    resetBoardGameSize
   } from "../stores/Stores";
 </script>
 
@@ -82,9 +83,7 @@
           <button
             disabled={$gameInProgress}
             class="btn btn-outline-danger w-100 mt-3 mt-sm-0 p-3 fw-semibold fs-4"
-            on:click={() => {
-              boardGameSize.set("");
-            }}>Indietro</button
+            on:click={resetBoardGameSize}>Indietro</button
           >
         </div>
       </div>
@@ -99,9 +98,7 @@
           </button>
           <button
             class="btn btn-outline-danger w-100 mt-3 mt-sm-0 p-3 fw-semibold fs-4"
-            on:click={() => {
-              boardGameSize.set("");
-            }}>Indietro</button
+            on:click={resetBoardGameSize}>Indietro</button
           >
         </div>
       </div>

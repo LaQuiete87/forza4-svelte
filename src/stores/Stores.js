@@ -3,7 +3,12 @@ import { get, writable } from "svelte/store";
 export const randomNumber = writable(null);
 export const winner = writable(false);
 export const draw = writable(false);
-export const boardGameSize = writable("");
+export const boardGameSize = writable({
+  height:null,
+  width:null,
+  valid:false
+
+});
 export const currentPlayer = writable("");
 export const matchStatistics = writable({
   players: [
@@ -31,37 +36,11 @@ export const columnIndexTarget = writable(0);
 export const pawnColor = writable("");
 export const showHome= writable(true)
 
+
+
 const numRandomAPI =
   "https://www.random.org/integers/?num=1&min=0&col=1&base=10&format=plain&rnd=new&max=";
 
-//Chiamata HTTP per ottenere un numero casuale coerente alla dimensione di gioco scelta
-export async function getRandomNumber(boardGameSize) {
-  if (boardGameSize === "5x5") {
-    try {
-      const response = await fetch(`${numRandomAPI}${4}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.text();
-      randomNumber.set(parseInt(data));
-    } catch (error) {
-      console.error("Fetch error:", error);
-      randomNumber.set(null);
-    }
-  } else {
-    try {
-      const response = await fetch(`${numRandomAPI}${6}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.text();
-      randomNumber.set(parseInt(data));
-    } catch (error) {
-      console.error("Fetch error:", error);
-      randomNumber.set(null);
-    }
-  }
-}
 
 //Cambio giocatore
 export function changePlayer(player) {
@@ -112,42 +91,138 @@ export function playerColor(cell) {
   if (cell === "CPU_2") return "red-pawn";
 }
 
+// //Genera il tabellone di gioco in base alla dimensione scelta
+// export async function generateBoardGame(size) {
+//   //azzera tutti i dati di gioco
+//   resetGame();
+//   //estrai un numero casuale per saper chi inizia
+//   await getRandomNumber(size);
+
+//   //se il numero è pari inizia CPU_1 altrimenti CPU_2
+//   whoStarts(get(randomNumber));
+
+//   boardGameSize.set(size);
+//   grid.set([]); // Svuota la griglia
+
+//   const newGrid = [];
+//   if (size === "5x5") {
+//     // Creazione della griglia 5x5
+//     for (let i = 0; i < 5; i++) {
+//       const row = Array(5).fill(null); // Crea una riga di 5 celle
+
+//       newGrid.push(row);
+//     }
+//     numRow.set(5);
+//     numCol.set(5);
+//   } else if (size === "7x6") {
+//     // Creazione della griglia 7x6
+//     for (let i = 0; i < 6; i++) {
+//       const row = Array(7).fill(null); // Crea una riga di 6 celle
+
+//       newGrid.push(row);
+//     }
+//     numRow.set(6);
+//     numCol.set(7);
+//   }
+//   //aggiorna la griglia
+//   grid.set(newGrid);
+// }
+
+
+//Chiamata HTTP per ottenere un numero casuale coerente alla dimensione di gioco scelta
+// export async function getRandomNumber(boardGameSize) {
+//   if (boardGameSize === "5x5") {
+//     try {
+//       const response = await fetch(`${numRandomAPI}${4}`);
+//       if (!response.ok) {
+//         throw new Error("Network response was not ok");
+//       }
+//       const data = await response.text();
+//       randomNumber.set(parseInt(data));
+//     } catch (error) {
+//       console.error("Fetch error:", error);
+//       randomNumber.set(null);
+//     }
+//   } else {
+//     try {
+//       const response = await fetch(`${numRandomAPI}${6}`);
+//       if (!response.ok) {
+//         throw new Error("Network response was not ok");
+//       }
+//       const data = await response.text();
+//       randomNumber.set(parseInt(data));
+//     } catch (error) {
+//       console.error("Fetch error:", error);
+//       randomNumber.set(null);
+//     }
+//   }
+// }
+
+export async function getRandomNumber(width) {
+  
+    try {
+      const response = await fetch(`${numRandomAPI}${width}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.text();
+      randomNumber.set(parseInt(data));
+      console.log('Numero casuale ottenuto:', get(randomNumber));
+    } catch (error) {
+      console.error("Fetch error:", error);
+      randomNumber.set(null);
+    }
+ 
+  
+}
+
+export function resetBoardGameSize(){
+  boardGameSize.set({
+    height:null,
+    width:null,
+    valid:false
+  })
+
+  }
+
+
 //Genera il tabellone di gioco in base alla dimensione scelta
 export async function generateBoardGame(size) {
+  console.log("generateBoardGame(size)", size)
+  console.log("Board Game Size store:", get(boardGameSize));
   //azzera tutti i dati di gioco
   resetGame();
   //estrai un numero casuale per saper chi inizia
-  await getRandomNumber(size);
+  await getRandomNumber(size.width-1);
 
   //se il numero è pari inizia CPU_1 altrimenti CPU_2
   whoStarts(get(randomNumber));
 
-  boardGameSize.set(size);
+  // boardGameSize.set(size);
+
   grid.set([]); // Svuota la griglia
-
+  
   const newGrid = [];
-  if (size === "5x5") {
-    // Creazione della griglia 5x5
-    for (let i = 0; i < 5; i++) {
-      const row = Array(5).fill(null); // Crea una riga di 5 celle
-
-      newGrid.push(row);
-    }
-    numRow.set(5);
-    numCol.set(5);
-  } else if (size === "7x6") {
-    // Creazione della griglia 7x6
-    for (let i = 0; i < 6; i++) {
-      const row = Array(7).fill(null); // Crea una riga di 6 celle
-
-      newGrid.push(row);
-    }
-    numRow.set(6);
-    numCol.set(7);
+  
+  for (let i = 0; i < size.height; i++) {
+    const row = Array(size.width).fill(null);
+    newGrid.push(row);
   }
+  numRow.set(size.height);
+  numCol.set(size.width);
+  
   //aggiorna la griglia
   grid.set(newGrid);
+  boardGameSize.update(current => {
+    return {
+      ...current, // Mantieni le proprietà correnti
+      valid: true // Aggiorna solo la proprietà valid
+    };
+  });
+
+ 
 }
+
 
 //Se la plancia è piena la partita è pareggiata
 export function isDraw(grid) {
@@ -483,7 +558,7 @@ export async function play() {
         return;
       }
     }
-  }, 1000); // Ripete ogni 2 secondi
+  }, 2000); // Ripete ogni 2 secondi
 }
 
 // Metodo per provare a inserire la pedina in una colonna casuale
@@ -493,11 +568,10 @@ export async function tryToPlaceRandomPawn() {
   // Finché la pedina non viene piazzata su una colonna libera viene chiamato il metodo tryToPlace()
   const tryToPlace = async () => {
     // Estrai un numero casuale per la colonna
-    await getRandomNumber(get(boardGameSize));
+    await getRandomNumber(get(boardGameSize).width-1)
     const colIndexRandom = get(randomNumber);
     console.log("Prova ad inserire nella colonna con indice", colIndexRandom);
-
-    // Prova a piazzare la pedina, se riesce `placePawnRandomly` restituirà `true`
+    // Prova a piazzare la pedina
     placed = placePawn(
       get(currentPlayer),
       get(numRow),

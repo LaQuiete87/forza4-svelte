@@ -134,7 +134,7 @@
   }
 
   @media only screen and (max-width: 576px) {
-    .title {
+    button.title {
       font-size: 4vw;
     }
   }

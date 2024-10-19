@@ -91,73 +91,7 @@ export function playerColor(cell) {
   if (cell === "CPU_2") return "red-pawn";
 }
 
-// //Genera il tabellone di gioco in base alla dimensione scelta
-// export async function generateBoardGame(size) {
-//   //azzera tutti i dati di gioco
-//   resetGame();
-//   //estrai un numero casuale per saper chi inizia
-//   await getRandomNumber(size);
-
-//   //se il numero è pari inizia CPU_1 altrimenti CPU_2
-//   whoStarts(get(randomNumber));
-
-//   boardGameSize.set(size);
-//   grid.set([]); // Svuota la griglia
-
-//   const newGrid = [];
-//   if (size === "5x5") {
-//     // Creazione della griglia 5x5
-//     for (let i = 0; i < 5; i++) {
-//       const row = Array(5).fill(null); // Crea una riga di 5 celle
-
-//       newGrid.push(row);
-//     }
-//     numRow.set(5);
-//     numCol.set(5);
-//   } else if (size === "7x6") {
-//     // Creazione della griglia 7x6
-//     for (let i = 0; i < 6; i++) {
-//       const row = Array(7).fill(null); // Crea una riga di 6 celle
-
-//       newGrid.push(row);
-//     }
-//     numRow.set(6);
-//     numCol.set(7);
-//   }
-//   //aggiorna la griglia
-//   grid.set(newGrid);
-// }
-
-
 //Chiamata HTTP per ottenere un numero casuale coerente alla dimensione di gioco scelta
-// export async function getRandomNumber(boardGameSize) {
-//   if (boardGameSize === "5x5") {
-//     try {
-//       const response = await fetch(`${numRandomAPI}${4}`);
-//       if (!response.ok) {
-//         throw new Error("Network response was not ok");
-//       }
-//       const data = await response.text();
-//       randomNumber.set(parseInt(data));
-//     } catch (error) {
-//       console.error("Fetch error:", error);
-//       randomNumber.set(null);
-//     }
-//   } else {
-//     try {
-//       const response = await fetch(`${numRandomAPI}${6}`);
-//       if (!response.ok) {
-//         throw new Error("Network response was not ok");
-//       }
-//       const data = await response.text();
-//       randomNumber.set(parseInt(data));
-//     } catch (error) {
-//       console.error("Fetch error:", error);
-//       randomNumber.set(null);
-//     }
-//   }
-// }
-
 export async function getRandomNumber(width) {
   
     try {
@@ -176,6 +110,7 @@ export async function getRandomNumber(width) {
   
 }
 
+//Resetta le dimensioni e la validità della plancia di gioco
 export function resetBoardGameSize(){
   boardGameSize.set({
     height:null,
@@ -184,7 +119,6 @@ export function resetBoardGameSize(){
   })
 
   }
-
 
 //Genera il tabellone di gioco in base alla dimensione scelta
 export async function generateBoardGame(size) {

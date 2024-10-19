@@ -7,63 +7,25 @@
     draw,
     play,
     playAgain,
+    resetBoardGameSize,
     boardGameSize,
-    resetBoardGameSize
   } from "../stores/Stores";
 </script>
 
-<style>
-  .boardGame {
-    margin: 0;
-  }
-  td {
-    width: 6vw;
-    height: 6vw;
-    text-align: center;
-    vertical-align: middle;
-    border: none;
-  }
-
-  .cell {
-    width: 5vw;
-    height: 5vw;
-    padding: 0;
-
-    border: solid #7d2e2e 3px;
-    border-radius: 50%;
-    margin: 0 auto;
-  }
-
-  .red-pawn {
-    background-color: rgb(255 120 120);
-  }
-  .yellow-pawn {
-    background-color: rgb(255, 235, 120);
-  }
-
-  @media only screen and (max-width: 576px) {
-  td {
-    width: 12vw;
-    height: 12vw;
-  }
-  .cell{
-    width: 10vw;
-    height: 10vw;
-  }
-}
-</style>
-
 <div class="container p-4">
-  <div
-    class="row d-flex flex-column justify-content-center align-items-center"
-  >
+  <div class="row d-flex flex-column justify-content-center align-items-center">
     <div class="col">
       <table class="boardGame mx-auto">
         {#each $grid as row}
           <tr>
             {#each row as cell}
-              <td>
-                <div class="cell {playerColor(cell)}"></div>
+              <td
+              class:td-8="{$boardGameSize.width >7 ||$boardGameSize.height>9}"
+               class:td-10="{$boardGameSize.width >9}"
+               class="td" >
+                <div
+                class:cell-8="{$boardGameSize.width >7 ||$boardGameSize.height>9 }"
+                 class:cell-10="{$boardGameSize.width >9}" class="cell {playerColor(cell)}"></div>
               </td>
             {/each}
           </tr>
@@ -106,4 +68,59 @@
   </div>
 </div>
 
+<style>
+  .boardGame {
+    margin: 0;
+  }
+  .td {
+    width: 6vw;
+    height: 6vw;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+  }
 
+  .cell {
+    width: 5vw;
+    height: 5vw;
+    padding: 0;
+
+    border: solid #7d2e2e 3px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+
+  .red-pawn {
+    background-color: rgb(255 120 120);
+  }
+  .yellow-pawn {
+    background-color: rgb(255, 235, 120);
+  }
+
+  @media only screen and (max-width: 576px) {
+    .td {
+      width: 12vw;
+      height: 12vw;
+    }
+    .td-8{
+      width: 9vw;
+      height: 9vw;
+    }
+    .td-10{
+      width: 7vw;
+      height: 7vw;
+    }
+    .cell {
+      width: 10vw;
+      height: 10vw;
+    }
+    .cell-8{
+      width: 8vw;
+      height: 8vw;
+    }
+    .cell-10{
+      width: 6vw;
+      height: 6vw;
+    }
+  }
+</style>

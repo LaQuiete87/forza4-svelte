@@ -85,12 +85,12 @@
 </div> -->
 
 <div class="container mt-5">
-  <h1 class="mb-4">Inserisci le dimensioni della plancia da gioco</h1>
-  <div class="mb-3">
-    <label for="boardHeight" class="form-label">Numero righe</label>
+  <h1 class="mb-4 text-center" >Inserisci le dimensioni della plancia da gioco</h1>
+  <div class="mb-3 text-center">
+    <label for="boardHeight" class="form-label fw-semibold">Numero righe</label>
     <input
       type="number"
-      class="form-control"
+      class="form-control text-center fs-4 fw-bold w-25 mx-auto border-4" 
       id="boardHeight"
       aria-describedby="emailHelp"
       required
@@ -99,13 +99,13 @@
     />
   </div>
   {#if validateBoardDimensions}
-    <p class="text-danger" style="font-size: 14px;">{errorMessage.height}</p>
+    <p class="text-danger text-center" style="font-size: 14px;">{errorMessage.height}</p>
   {/if}
-  <div class="mb-3">
-    <label for="boardHeight" class="form-label">Numero colonne</label>
+  <div class="mb-3 text-center">
+    <label for="boardHeight" class="form-label fw-semibold ">Numero colonne</label>
     <input
       type="number"
-      class="form-control"
+      class="form-control  text-center fs-4 fw-bold w-25 mx-auto border-4"
       id="boardHeight"
       aria-describedby="emailHelp"
       required
@@ -114,7 +114,7 @@
     />
   </div>
   {#if validateBoardDimensions}
-    <p class="text-danger" style="font-size: 14px;">{errorMessage.width}</p>
+    <p class="text-danger text-center" style="font-size: 14px;">{errorMessage.width}</p>
   {/if}
   <div class=" d-flex justify-content-center">
     <button

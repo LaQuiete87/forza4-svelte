@@ -79,6 +79,15 @@
     vertical-align: middle;
     border: none;
   }
+  .td-8{
+      width: 4.5vw;
+      height: 4.5vw;
+    }
+    .td-10{
+      width: 4vw;
+      height: 4vw;
+    }
+    
 
   .cell {
     width: 5vw;
@@ -89,6 +98,14 @@
     border-radius: 50%;
     margin: 0 auto;
   }
+  .cell-8{
+      width: 4vw;
+      height: 4vw;
+    }
+    .cell-10{
+      width: 3.5vw;
+      height: 3.5vw;
+    }
 
   .red-pawn {
     background-color: rgb(255 120 120);

@@ -492,7 +492,7 @@ export async function play() {
         return;
       }
     }
-  }, 2000); // Ripete ogni 2 secondi
+  }, 1000); // Ripete ogni secondo
 }
 
 // Metodo per provare a inserire la pedina in una colonna casuale
